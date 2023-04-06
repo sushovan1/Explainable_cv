@@ -21,16 +21,16 @@ from io import StringIO
 from PIL import Image
 # Function to Read and Manupilate Images
 
-data_dir=r'C:\Users\CSU5KOR\OneDrive - Bosch Group\CV_Training_Udemy\Feature_maps_experiments'
-weights_dir=r'C:\Users\CSU5KOR\OneDrive - Bosch Group\CV_Training_Udemy'
-model=ResNet50(input_shape=(224,224,3),weights=os.path.join(weights_dir,'resnet50_weights_tf_dim_ordering_tf_kernels.h5'),include_top=True)
+#data_dir=r'C:\Users\CSU5KOR\OneDrive - Bosch Group\CV_Training_Udemy\Feature_maps_experiments'
+#weights_dir=r'C:\Users\CSU5KOR\OneDrive - Bosch Group\CV_Training_Udemy'
+model=ResNet50(input_shape=(224,224,3),weights="imagenet",include_top=True)
 conv_names=[]
 for layer in model.layers:
     name=layer.name.split('_')[0]
     if name.find('conv')!=-1 and layer.output_shape[-1]==2048:
         conv_names.append(layer.name)
 
-file_name=os.path.join(data_dir,'imagenet_class_index.json')
+file_name='imagenet_class_index.json'
 with open(file_name,'rb') as f:
     class_data=json.load(f)
 
