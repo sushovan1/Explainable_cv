@@ -51,9 +51,11 @@ if uploadFile is not None:
     img=np.expand_dims(img, axis=0)
     model_image=preprocess_input(img)
     pred=model.predict(model_image)
+    pred_op=decode_predictions(pred)[0]
+    classes=pred_op[0][1]
     #pred_prob=pred[0][np.argmax(pred)]
-    highest_index_prob=np.argmax(pred)
-    classes=class_data[str(highest_index_prob)][1]
+    #highest_index_prob=np.argmax(pred)
+    #classes=class_data[str(highest_index_prob)][1]
     st.write('predicted class :'+ classes)
     layer_names=st.sidebar.selectbox(label='select conv layer for calculation', 
                                      options=np.array(conv_names),
