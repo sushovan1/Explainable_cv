@@ -17,7 +17,6 @@ from keras.preprocessing import image
 import scipy as sp
 import matplotlib.pyplot as plt
 from keras.models import Model
-from io import StringIO
 from PIL import Image
 # Function to Read and Manupilate Images
 
