@@ -1,0 +1,7 @@
+streamlit==1.0.0
+keras==2.8.0
+PIL==9.2.0
+scipy==1.8.1
+json==2.0.9
+matplotlib==3.5.3
+numpy==1.21.3
