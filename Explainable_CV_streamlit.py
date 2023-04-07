@@ -2,13 +2,12 @@
 """
 Created on Thu Apr  6 22:28:53 2023
 
-@author: CSU5KOR
+@author: Sushovan
 """
 
 
 
 import os
-import json
 import numpy as np
 import streamlit as st 
 from keras.applications.resnet import ResNet50
@@ -27,9 +26,7 @@ for layer in model.layers:
     if name.find('conv')!=-1 and layer.output_shape[-1]==2048:
         conv_names.append(layer.name)
 
-file_name='imagenet_class_index.json'
-with open(file_name,'rb') as f:
-    class_data=json.load(f)
+
 
 def load_image(image_file):
     image = Image.open(image_file)
