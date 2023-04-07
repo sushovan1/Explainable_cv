@@ -37,7 +37,7 @@ def load_image(image_file):
 # Uploading the File to the Page
 uploadFile = st.sidebar.file_uploader(label="Upload image", type=['jpg', 'png'])
 
-# Checking the Format of the page
+
 if uploadFile is not None:
     img = load_image(uploadFile)
     #st.image(img)
