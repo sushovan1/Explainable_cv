@@ -18,10 +18,8 @@ import scipy as sp
 import matplotlib.pyplot as plt
 from keras.models import Model
 from PIL import Image
-# Function to Read and Manupilate Images
 
-#data_dir=r'C:\Users\CSU5KOR\OneDrive - Bosch Group\CV_Training_Udemy\Feature_maps_experiments'
-#weights_dir=r'C:\Users\CSU5KOR\OneDrive - Bosch Group\CV_Training_Udemy'
+
 model=ResNet50(input_shape=(224,224,3),weights="imagenet",include_top=True)
 conv_names=[]
 for layer in model.layers:
@@ -44,7 +42,6 @@ uploadFile = st.sidebar.file_uploader(label="Upload image", type=['jpg', 'png'])
 
 # Checking the Format of the page
 if uploadFile is not None:
-    # Perform your Manupilations (In my Case applying Filters)
     img = load_image(uploadFile)
     #st.image(img)
     img=np.expand_dims(img, axis=0)
@@ -52,29 +49,25 @@ if uploadFile is not None:
     pred=model.predict(model_image)
     pred_op=decode_predictions(pred)[0]
     classes=pred_op[0][1]
-    #pred_prob=pred[0][np.argmax(pred)]
-    #highest_index_prob=np.argmax(pred)
-    #classes=class_data[str(highest_index_prob)][1]
     st.write('predicted class :'+ classes)
     layer_names=st.sidebar.selectbox(label='select conv layer for calculation', 
                                      options=np.array(conv_names),
                                      index=(len(conv_names)-1))
-    #get the output from the last layer before flatten-Check summary for the names
-    output_layer=model.get_layer(conv_names[-1]) #'activation_49'
+
+    output_layer=model.get_layer(layer_names) 
     feature_analysis_model=Model(inputs=model.input,outputs=output_layer.output)
 
     final_layer=model.get_layer('predictions')
-    #get the weights
     weights=final_layer.get_weights()
     coeffs=weights[0]
     bias=weights[1]
-    #trying to gauge the features
+    
     features=feature_analysis_model.predict(model_image)
     weight_vec=coeffs[:,highest_index_prob]
     bias_num=bias[highest_index_prob]
-    #estimate the features
+    
     feature_sub=features[0]
-    #trial=weight_vec[0]*feature_sub[:,:,0]
+    
 
     test_sum=features[0].dot(weight_vec)
 
